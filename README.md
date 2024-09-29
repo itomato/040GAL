@@ -1,62 +1,55 @@
 # 040GAL.LZH
-BEEPs氏が開発されたX68030用の68040アクセラレータ、040turboのGALデータです。  
-本GALデータでは『いわゆる040turbo本』が発行された後に判明した、1件の不具合を修正しています。  
+This is the GAL data for 040turbo, a 68040 accelerator for X68030 developed by BEEPs.
+This GAL data fixes one bug that was discovered after the publication of "The So-Called 040turbo Book".
 
-## 本修正の対象となるGAL
-IC2(GAL16V8)のみです。  
-![IC2の位置](./IC2_V6.jpg)  
+## Only GAL IC2 (GAL16V8) is affected by this fix.
+![Position of IC2](./IC2_V6.jpg)
 
-## 修正の内容
-BERR信号が入力される複数の処理において、信号アサートのタイミングやGALチップの差異で  
-いずれかの論理がバスエラーとして認識せず齟齬が発生し、68040はハングアップします。  
-こうなるとNMIは効かず、リセットをするしかありません。  
+## Contents of the fix
+In multiple processes where the BERR signal is input, due to differences in the signal assertion timing and GAL chip,
+one of the logics does not recognize it as a bus error, causing a discrepancy, and the 68040 hangs up.
+When this happens, NMI does not work and the only option is to reset.
 
-この修正では、BERR信号をまとめて認識してからそれぞれの処理へ渡すように変更されています。  
-修正内容の詳細は、参考として添付するIC2_V5.PLDと見比べてください。
+In this fix, the BERR signal is changed to be recognized collectively before being passed to each process.
+For details of the fix, please compare it with IC2_V5.PLD attached for reference.
 
-事象を確認する手法に、バスエラーの一種であるスプリアス割り込みを頻発させる方法があります。  
-当該事象は、スプリアス割り込みを意図的に頻発させる*mfptest*により発見されています。  
+One method to check for this issue is to make spurious interrupts, a type of bus error, occur frequently.
+This issue was discovered by *mfptest*, which intentionally makes spurious interrupts occur frequently.
 
-## 書き換えなくても大丈夫？
-当時も、GALのロットで不具合の出る出ない（出にくい？）の違いがありました。  
-対策前の古いGALデータでも*mfptest*でハングアップしなければ急いで書き直す必要はありませんが、  
-動作環境や経年でどうなるか分かりませんので、本件を頭の片隅に留めておきましょう。  
-ADPCMを含む音楽データ再生時、謎のハングアップをしている環境であれば改善される可能性があります。  
+## Is it okay if I don't rewrite it?
+At the time, there were differences in the GAL lots in terms of whether they caused problems (or were less likely to cause problems?).
+If you don't get a hang-up with *mfptest* even with old GAL data before the countermeasures were implemented, there is no need to rush to rewrite it, but
+it is unknown what will happen depending on the operating environment or the passage of time, so keep this in the back of your mind.
+This may improve your environment if you are experiencing mysterious hang-ups when playing music data that includes ADPCM.
 
-## 当時のアップロードヘッダ
-	========================================================================
-	《名    称》 040turboに使用されているGALデータ一式
-	《登 録 名》 040GAL.LZH
-	《日    付》 94/09/19 23:50:12
-	《原 作 者》 BEEPs (PEG00631)
-	《作    者》 BEEPs (PEG00631)
-	《掲 載 者》 BEEPs (PEG00631)
-	《著 作 権》 放棄
-	《展開方法》 ISH 040GAL.ISH || LHA x 040GAL.LZH
-	《転    載》 制限なし
-	========================================================================
-	《備    考》
-	
-	040turbo用に使われているGALデータの1994/9/20 現在における最新版です。
-	
-	以下のファイルが含まれています。
-	
-		IC1_V5             PLD       2991  94-09-19  23:46:58
-		IC2_V6             PLD       2039  94-09-19  23:46:58
-		IC3                PLD       2549  94-09-19  23:46:58
-		IC4_V3             PLD       2773  94-09-19  23:46:58
-		IC5                PLD       2095  94-09-19  23:46:58
-		IC1_V5             JED       1446  94-09-19  23:46:58
-		IC2_V6             JED       1488  94-09-19  23:46:58
-		IC3                JED       1568  94-09-19  23:46:58
-		IC4_V3             JED       2623  94-09-19  23:46:58
-		IC5                JED       1694  94-09-19  23:46:58
-	
-	----------------------------------------------------------------------
-	      040turboの情報はフリーです。転載、２次活用、その他自由です
-	----------------------------------------------------------------------
+## Upload header at the time
+======================================================================
 
-#### 余談
-動作速度の遅いバージョン（15と25）ならびにAtmel ATF16V8B-15では、古いGALデータ（V5）での  
-ハングアップを確認できていません。  
-当時はLatticeのロゴが***6つの正方形とL***で構成される比較的新しいロットが発生しやすかったような……  
+Name: Complete set of GAL data used in 040turbo
+
+Registered name: 040GAL.LZH
+
+Date: 94/09/19 23:50:12
+
+Original author: BEEPs (PEG00631)
+
+Creator: BEEPs (PEG00631)
+
+Poster: BEEPs (PEG00631)
+
+Copyright: Abandoned
+
+Expansion method: ISH 040GAL.ISH || LHA x 040GAL.LZH
+{Reproduction} No restrictions
+= ... IC1_V5 PLD 2991 94-09-19 23:46:58 IC2_V6 PLD 2039 94-09-19 23:46:58 IC3 PLD 2549 94-09-19 23:46:58 IC4_V3 PLD 2773 94-09-19 23:46:58 IC5 PLD 2 095 94-09-19 23:46:58 IC1_V5 JED 1446 94-09-19 23:46:58 IC2_V6 JED 1488 94-09-19 23:46:58 IC3 JED 1568 94-09-19 23:46:58 IC4_V3 JED 2623 94-09-19 23:46:58
+
+IC5 JED 1694 94-09-19 23:46:58
+
+---------------------------------------------------------
+040turbo information is free. Reprinting, secondary use, and other uses are free.
+---------------------------------------------------------------------
+
+#### Digression
+We have not been able to confirm any hang-ups with the slower versions (15 and 25) and the Atmel ATF16V8B-15 when using old GAL data (V5).
+
+At that time, it seemed like the Lattice logo, which consisted of ***6 squares and an L***, was more likely to be produced in relatively new batches...
