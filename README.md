@@ -1,6 +1,6 @@
 # 040GAL.LZH
 This is the GAL data for 040turbo, a 68040 accelerator for X68030 developed by BEEPs.
-This GAL data fixes one bug that was discovered after the publication of "The So-Called 040turbo Book".
+This GAL data fixes one bug that was discovered after the publication of ["The So-Called 040turbo Book"](https://archive.org/details/X68040turboBEEPs1994/page/n421/mode/2up).
 
 ## Only GAL IC2 (GAL16V8) is affected by this fix.
 ![Position of IC2](./IC2_V6.jpg)
